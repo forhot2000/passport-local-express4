@@ -5,6 +5,8 @@ block content
     if (!user)
       a(href="/login") Login
       br
+      a(href="/auth/google") Login with Google
+      br
       a(href="/register") Register
     if (user)
       p You are currently logged in as #{user.username}
