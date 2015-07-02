@@ -38,7 +38,7 @@ app.use('/', routes);
 require('./config/passport').configure();
 
 // mongoose
-mongoose.connect('mongodb://dockerhost/passport_local_mongoose_express4');
+mongoose.connect(require('./config/mongo').connectString);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

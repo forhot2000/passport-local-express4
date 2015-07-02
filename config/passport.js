@@ -5,12 +5,17 @@ var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 // passport config
 var Account = require('../models/account');
 
+var HOST = "http://" + (process.env.C9_HOSTNAME || "localhost"),
+    GOOGLE_CLIENT_ID = "948932287312-33q7h4aoj9po0fijah5bgu3r76evujc2.apps.googleusercontent.com",
+    GOOGLE_CLIENT_SECRET = "R_UruZAc0JNyIQFImbHZ7Kie",
+    GOOGLE_CALLBACK_URL = HOST + "/auth/google/callback";
+
 var localStrategy = new LocalStrategy(Account.authenticate());
 
 var googleStrategy = new GoogleStrategy({
-    clientID: "948932287312-33q7h4aoj9po0fijah5bgu3r76evujc2.apps.googleusercontent.com",
-    clientSecret: "R_UruZAc0JNyIQFImbHZ7Kie",
-    callbackURL: "http://25c4629f.ngrok.com/auth/google/callback"
+    clientID: GOOGLE_CLIENT_ID,
+    clientSecret: GOOGLE_CLIENT_SECRET,
+    callbackURL: GOOGLE_CALLBACK_URL
   },
   function(token, tokenSecret, profile, done) {
     console.log("google profile:", JSON.stringify(profile, null, 2))
