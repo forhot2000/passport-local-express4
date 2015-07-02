@@ -19,9 +19,9 @@ var googleStrategy = new GoogleStrategy({
   },
   function(token, tokenSecret, profile, done) {
     console.log("google profile:", JSON.stringify(profile, null, 2))
-    Account.find({ 'accounts.uid': profile.id, 'accounts.provider': 'google' }, function(err, olduser) {
+    Account.findOne({ 'accounts.uid': profile.id, 'accounts.provider': 'google' }, function(err, olduser) {
 
-      if(olduser._id) {
+      if(olduser) {
         console.log('Account: ' + olduser.username + ' found and logged in!');
         done(null, olduser);
       } else {
@@ -36,12 +36,23 @@ var googleStrategy = new GoogleStrategy({
           console.log('New account: ' + newuser.username + ' created and logged in!');
           done(null, newuser);
         });
+        
+        // newuser.setPassword('User@123', function(err) {
+        //   if (err) {
+        //     console.error(err); 
+        //     return;
+        //   }
+        //   newuser.save(function(err) {
+        //     if (err) console.error(err);
+        //   });
+        // });
       }
     });
   }
 );
 
 exports.configure = function() {
+  passport.use(localStrategy);
   passport.use(googleStrategy);
   passport.serializeUser(Account.serializeUser());
   passport.deserializeUser(Account.deserializeUser());
