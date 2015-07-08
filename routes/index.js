@@ -24,10 +24,6 @@ router.post('/register', function(req, res) {
     });
 });
 
-router.use('/users', require('./users'));
-router.use('/auth', require('./auth'));
-
-
 router.get('/login', function(req, res) {
     res.render('login', { user : req.user });
 });
@@ -44,5 +40,9 @@ router.get('/logout', function(req, res) {
 router.get('/ping', function(req, res){
     res.status(200).send("pong!");
 });
+
+router.use('/users', require('./users'));
+router.use('/auth', require('./auth'));
+
 
 module.exports = router;
