@@ -5,11 +5,10 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var mongoose = require('mongoose');
+// var mongoose = require('mongoose');
 var passport = require('passport');
 
 var routes = require('./routes/index');
-var users = require('./routes/users');
 
 var app = express();
 
@@ -33,12 +32,15 @@ app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-app.use('/', routes);
+app.use('/auth', routes.auth);
+app.use('/users', routes.users);
+app.use('/', routes.index);
+
 
 require('./config/passport').configure();
 
 // mongoose
-mongoose.connect(require('./config/mongo').connectString);
+// mongoose.connect(require('./config/mongo').connectString);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
