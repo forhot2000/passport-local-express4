@@ -14,13 +14,14 @@
 // module.exports = mongoose.model('accounts', Account);
 
 var accounts = [
-  { username: "travis", password: "123", token: "abd123" }
+  { username: "west", email: "west@misfit.com", password: "123", token: "abd123" }
 ];
 
-var map = {};
+var _map = {};
 
 function Account(args) {
   this.username = args.username;
+  this.email = args.email;
   this.password = args.password;
   this.token = args.token;
 }
@@ -49,13 +50,15 @@ Account.prototype.checkPassword = function(password, done) {
 
 Account.get = function(username, cb) {
   process.nextTick(function(){
-    cb(null, map[username]);
+    cb(null, _map[username.toLowerCase()]);
   });
 };
 
 (function(){
   accounts.forEach(function(account) {
-    map[account.username] = new Account(account);
+    var user = new Account(account);
+    _map[user.username.toLowerCase()] = user;
+    _map[user.email.toLowerCase()] = user;
   });
 }());
 
