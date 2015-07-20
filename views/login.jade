@@ -12,9 +12,10 @@ block content
         input.form-control(type='password', name="password", placeholder='Password')
       if (errmsg)
         p.text-danger #{errmsg}
-      button.btn.btn-default(type='submit') Submit
-      &nbsp;
+      button.btn.btn-primary(type='submit') Submit
+      =" "
       a(href='/')
-        button.btn.btn-primary(type="button") Cancel
-      &nbsp;
-      a(href="/auth/google") Login with Google
+        button.btn.btn-default(type="button") Cancel
+      =" "
+      a(href="/auth/google")
+        img(src='https://developers.google.com/+/images/branding/sign-in-buttons/Red-signin_Google_base_44dp.png', style='width: 120px; height: 40px;')
